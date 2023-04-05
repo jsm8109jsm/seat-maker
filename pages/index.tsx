@@ -22,7 +22,6 @@ export default function Home() {
     (async () => {
       try {
         const response = await getDocs(q);
-        console.log(response);
         let newData: SeatType[] = [];
         response.docs.map((doc) => {
           newData.push(doc.data());
@@ -48,7 +47,7 @@ export default function Home() {
       <div>
         <h1 className={styles.title}>3-2반 자리 뽑기 사이트!</h1>
         <div className={styles.seat_container}>
-          {students.map((item, index) => {
+          {[...students].reverse().map((item, index) => {
             return (
               <div key={index} className={styles.seat}>
                 <span>
@@ -66,6 +65,7 @@ export default function Home() {
           })}
         </div>
       </div>
+      <div className={styles.desk}>교탁</div>
     </>
   );
 }
