@@ -2,8 +2,6 @@
   background-color: white;
   padding-bottom: 20px;
   padding-top: 20px;
-  /* width: 720px;
-  margin: 0 auto; */
 }
 
 .title {
@@ -51,6 +49,13 @@
   gap: 10px;
 }
 
+.footer {
+  width: 720px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .button {
   cursor: pointer;
   width: 100px;
@@ -58,4 +63,20 @@
   /* background-color: greenyellow;
   color: black; */
   /* border: none; */
+}
+
+.watermark {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 5px;
+}
+
+.github{
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }

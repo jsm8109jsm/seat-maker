@@ -13,6 +13,7 @@ import { useEffect, useRef, useState } from "react";
 import { fireStore } from "@/config/firebaseConfig";
 import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
+import { AiFillGithub } from "react-icons/ai";
 
 interface SeatType {
   [x: string]: DocumentData | string | number;
@@ -119,7 +120,16 @@ export default function Home() {
             );
           })}
         </div>
-        <div className={styles.desk}>교탁</div>
+        <div className={styles.footer}>
+          <div className={styles.desk}>교탁</div>
+          <div className={styles.watermark}>
+            <span>★ made by 정승민 ★</span>
+            <span className={styles.github}>
+              <AiFillGithub />
+              jsm8109jsm
+            </span>
+          </div>
+        </div>
       </div>
       <div className={styles.buttons}>
         <button onClick={() => shuffleSeats()} className={styles.button}>
