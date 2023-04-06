@@ -1,3 +1,11 @@
+.background {
+  background-color: white;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  /* width: 720px;
+  margin: 0 auto; */
+}
+
 .title {
   text-align: center;
 }
@@ -21,9 +29,10 @@
   justify-content: center;
   text-align: center;
   font-size: 24px;
+  background-color: transparent;
 }
 
-.desk{
+.desk {
   border: 2px solid black;
   background-color: yellow;
   width: 250px;
@@ -33,4 +42,20 @@
   align-items: center;
   justify-content: center;
   font-size: 32px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.button {
+  cursor: pointer;
+  width: 100px;
+  height: 30px;
+  /* background-color: greenyellow;
+  color: black; */
+  /* border: none; */
 }
