@@ -24,6 +24,7 @@
 }
 
 .desk{
+  border: 2px solid black;
   background-color: yellow;
   width: 250px;
   height: 75px;

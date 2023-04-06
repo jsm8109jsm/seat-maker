@@ -6,38 +6,73 @@ import {
   query,
   orderBy,
   getDocs,
+  doc,
+  updateDoc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { fireStore } from "@/config/firebaseConfig";
 
 interface SeatType {
-  [x: string]: DocumentData | string;
+  [x: string]: DocumentData | string | number;
 }
 
 export default function Home() {
   const bucket = collection(fireStore, "students");
   const q = query(bucket, orderBy("current_seat"));
   const [students, setStudents] = useState<SeatType[]>([]);
+  const [render, setRender] = useState(false);
+
+  const setEmptySeat = (seats: SeatType[]) => {
+    return (seats = [
+      ...seats.slice(0, 12),
+      { name: "빈자리" },
+      ...seats.slice(12),
+      { name: "빈자리" },
+    ]);
+  };
+
   useEffect(() => {
     (async () => {
       try {
         const response = await getDocs(q);
         let newData: SeatType[] = [];
         response.docs.map((doc) => {
-          newData.push(doc.data());
+          newData.push({ ...doc.data(), doc_id: doc.id });
         });
-        newData = [
-          ...newData.slice(0, 12),
-          { name: "빈자리" },
-          ...newData.slice(12),
-          { name: "빈자리" },
-        ];
+        newData = setEmptySeat(newData);
         setStudents(newData);
       } catch (error) {
         console.log(error);
       }
     })();
-  }, []);
+  }, [render]);
+
+  const shuffle = (array: SeatType[]) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  };
+
+  const shuffleSeats = () => {
+    let newStudents = students.filter((student) => student.id);
+    shuffle(newStudents);
+    newStudents = setEmptySeat(newStudents);
+    newStudents.forEach((student) => {
+      student.current_seat = newStudents.indexOf(student);
+    });
+    newStudents.forEach(async (student) => {
+      if (student.doc_id) {
+        const studentDocRef = doc(
+          fireStore,
+          "students",
+          String(student.doc_id)
+        );
+        await updateDoc(studentDocRef, student);
+      }
+    });
+    setRender((prev) => !prev);
+  };
 
   return (
     <>
@@ -66,6 +101,7 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.desk}>교탁</div>
+      <button onClick={() => shuffleSeats()}>자리 섞기!</button>
     </>
   );
 }
