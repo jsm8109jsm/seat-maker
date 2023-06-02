@@ -51,7 +51,6 @@ export default function Home() {
       { name: "빈자리" },
     ]);
   };
-
   useEffect(() => {
     (async () => {
       try {
@@ -130,6 +129,7 @@ export default function Home() {
             </span>
           </div>
         </div>
+        <div className={styles.warn}>❗️무단으로 자리를 바꿀 시 벌점이 부여됩니다❗️</div>
       </div>
       <div className={styles.buttons}>
         <button onClick={() => shuffleSeats()} className={styles.button}>
